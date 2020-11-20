@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(name="feature_create_select",
-        version="N/A",
+        version="0.1.1",
         description="this is for creating and removing features for a dataset intended for machine learning",
-        # url="https://github.com/lphcreat/feature_create_select.git",
+        url="https://github.com/lphcreat/feature_create_select.git",
         author="lph",
         author_email="wynfdsm@163.com",
-        license="N/A",
+        license="GNU",
         packages=["feature_create_select"],
         install_requires=[
             "matplotlib>=2.1.2",

@@ -8,6 +8,7 @@ import warnings
 
 class AutoCreate():
     """
+    The example in https://github.com/lphcreat/feature_create_select/blob/master/feature_create_test.ipynb.
     Class for create feature use featuretools.
     the parent class from https://github.com/alteryx/featuretools.
     

@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 class AutoSelect(FeatureSelector):
     """
+    The example in https://github.com/lphcreat/feature_create_select/blob/master/auto_select_test.ipynb.
     Class for performing feature selection for machine learning or data preprocessing.
     the parent class from https://github.com/WillKoehrsen/feature-selector.
     if you want use it you can run 'pip install --no-deps feature_selector'

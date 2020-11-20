@@ -6,10 +6,12 @@ plot you can use feature_create drop null/unique/corr features.
 
 
 # Methods
-
+## Import Class
+from feature_create_select.feature_create import AutoCreate
+from feature_create_select.auto_select_feature import AutoSelect
 
 ## Usage
 you can see examples in auto_select_test.ipynb/feature_create_test.ipynb
 
-## Future
+# Future
 add class for model selecting and parameters tunning
