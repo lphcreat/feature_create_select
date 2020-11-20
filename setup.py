@@ -5,7 +5,7 @@ setup(name="feature_create_select",
         description="this is for creating and removing features for a dataset intended for machine learning",
         # url="https://github.com/lphcreat/feature_create_select.git",
         author="lph",
-        author_email="",
+        author_email="wynfdsm@163.com",
         license="N/A",
         packages=["feature_create_select"],
         install_requires=[
@@ -16,4 +16,4 @@ setup(name="feature_create_select",
             'numpy>=1.18.1',
             'pandas>=1.0.1',
             ],
-        zip_safe=False)
+        zip_safe=True)
