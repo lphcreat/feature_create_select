@@ -22,8 +22,10 @@ class AutoCreate():
       https://featuretools.alteryx.com/en/stable/getting_started/primitives.html?highlight=defining-custom-primitives
     """
 
-    def __init__(self):
-        self.auto_create = ft.EntitySet(id = 'auto_create')
+    def __init__(self,id_name=None):
+        if id_name is None:
+            id_name = 'auto_create'
+        self.auto_create = ft.EntitySet(id = id_name)
         # 限定输入类别string/number/category(object)/datetime
     
     def create_entity(self,entity_id:str,dataframe:pd.DataFrame,**kwds):
