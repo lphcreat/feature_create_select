@@ -32,6 +32,10 @@ class AutoCreate():
         '''
         one by one add pandas dataframe to EntitySet
         '''
+        # convert id_type(int32)
+        int_types = ['int16', 'int32', 'int64']
+        convert_col = dataframe.head.select_dtypes(include=int_types).columns
+        dataframe[convert_col] = dataframe[convert_col].astype('int32')
         self.auto_create = self.auto_create.entity_from_dataframe(entity_id=entity_id,
                               dataframe=dataframe,**kwds)
 
