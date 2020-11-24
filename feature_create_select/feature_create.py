@@ -32,7 +32,7 @@ class AutoCreate():
         '''
         one by one add pandas dataframe to EntitySet
         '''
-        # convert id_type(int32)
+        # convert id type to (int32);if ids type are not same,will can't add relation.
         int_types = ['int16', 'int32', 'int64']
         convert_col = dataframe.head.select_dtypes(include=int_types).columns
         dataframe[convert_col] = dataframe[convert_col].astype('int32')
