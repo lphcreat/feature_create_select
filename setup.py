@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name="feature_create_select",
-        version="0.1.1",
+        version="0.1.2",
         description="this is for creating and removing features for a dataset intended for machine learning",
         url="https://github.com/lphcreat/feature_create_select.git",
         author="lph",

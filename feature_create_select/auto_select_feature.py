@@ -153,3 +153,42 @@ class AutoSelect(FeatureSelector):
         self.plot_collinear()
         self.plot_feature_importances()
         self.skplot_feature_importances()
+
+    def remove(self, methods, keep_cols = None):
+        """
+        Remove the features from the data according to the specified methods.
+        Parameters
+        --------
+            methods : 'all' or list of methods
+                If methods == 'all', any methods that have identified features will be used
+                Otherwise, only the specified methods will be used.
+                Can be one of ['missing', 'single_unique', 'collinear', 'zero_importance', 'low_importance','sk_low_importance']
+            keep_cols : list/str, default = None the cols will not remove
+        Return
+        --------
+            data : dataframe
+                Dataframe with identified features removed
+        """
+        features_to_drop = []
+        
+        if methods == 'all':                                        
+            print('{} methods have been run\n'.format(list(self.ops.keys())))
+            # Find the unique features to drop
+            features_to_drop = set(list(chain(*list(self.ops.values()))))
+        else:
+            for method in methods:
+                if method not in self.ops.keys():
+                    raise NotImplementedError('%s method has not been run' % method)
+                else:
+                    features_to_drop.append(self.ops[method])
+            features_to_drop = set(list(chain(*features_to_drop)))
+        features_to_drop = list(features_to_drop)
+        if keep_cols is not None:
+            #if keep_cols type is str will keep contain keep_cols cols
+            if isinstance(keep_cols,str):
+                keep_cols = [col for col in features_to_drop if keep_cols in col]
+            features_to_drop = list(set(features_to_drop) - set(keep_cols))
+        # Remove the features and return the data
+        data = self.data.drop(columns = features_to_drop)
+        self.removed_features = features_to_drop
+        return data
