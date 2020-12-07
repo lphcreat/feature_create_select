@@ -7,9 +7,11 @@ import pandas as pd
 import numpy as np
 from itertools import chain
 import matplotlib.pyplot as plt
-
+from evalml.data_checks import HighlyNullDataCheck
 class AutoSelect(FeatureSelector):
     """
+    Deprecated
+    -----
     The example in https://github.com/lphcreat/feature_create_select/blob/master/auto_select_test.ipynb.
     Class for performing feature selection for machine learning or data preprocessing.
     the parent class from https://github.com/WillKoehrsen/feature-selector.

@@ -1,19 +1,16 @@
 # About
-https://github.com/lphcreat/feature_create_select you can easily transform data
-to features and select features by this package.
-This is a tool for feature create by featuretools and plot features selecting by feature_selector(use 'pip install --no-deps feature_selector'). if you do not need
-plot you can use feature_create drop null/unique/corr features.
-
+this contain all component you can very easily use this model.
+This is a tool for model create from original data by featuretools and eval.
+Have DataCheck(check data)/AutoCreate(create features)/AutoSelect(select features)/ModelSelect(select model) will add ModelDeploy(deploy model)/MonitorPredict(monitor prediction)
 
 # Methods
 ## Import Class
 from feature_create_select.feature_create import AutoCreate
-from feature_create_select.auto_select_feature import AutoSelect
+from feature_create_select.feature_select import AutoSelect
 
 ## Usage
 you can see examples in auto_select_test.ipynb/feature_create_test.ipynb
+will add full_example by the path: data_check -> feature_create -> feature_select -> model_select -> model_deploy -> monitor_predict
 
 # Future
-now we have feature creating and selecting,but in ml,first step is data cleaning.
-so will add data cleaning in future,and model selecting and parameters tunning and so on.
-the ml path like:data cleaning(包括缺失值处理/异常值剔除等)-> feature creating(还包括数据标准化) -> feature selecting -> model selecting(find best model and parameters) -> model traing -> deploy
+add model_deploy,outline_check,monitor_predict;

@@ -1,7 +1,7 @@
 import pandas as pd
 from evalml.automl import AutoMLSearch
 from evalml.objectives import FraudCost
-from .select_utils.trans_model import SModelTrans
+from .utils.trans_model import SModelTrans
 from evalml.pipelines import (MulticlassClassificationPipeline as MP,
                                 BinaryClassificationPipeline  as BP,
                                 RegressionPipeline as RP)
