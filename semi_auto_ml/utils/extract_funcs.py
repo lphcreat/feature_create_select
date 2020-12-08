@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import featuretools as ft
 
 def format_importance(features,feature_importance):
     feature_importances = pd.DataFrame({'feature': features, 'importance': feature_importance})
@@ -8,6 +9,3 @@ def format_importance(features,feature_importance):
     feature_importances['cumulative_importance'] = np.cumsum(feature_importances['normalized_importance'])
     return feature_importances
 
-def get_feature_def():
-    #TODO generate feature_def by feature tools
-    pass

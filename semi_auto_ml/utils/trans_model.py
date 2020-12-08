@@ -23,7 +23,9 @@ class SModelTrans(Estimator):
 
     @property
     def feature_importance(self):
-        if self.model_type == 'model':
+        try:
             return self._component_obj.coef_
-        else:
+        except :
+            return self._component_obj.feature_importances_
+        finally:
             return None

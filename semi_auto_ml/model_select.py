@@ -6,6 +6,8 @@ from evalml.pipelines import (MulticlassClassificationPipeline as MP,
                                 BinaryClassificationPipeline  as BP,
                                 RegressionPipeline as RP)
 from evalml.pipelines.components import *
+from evalml.model_understanding import calculate_permutation_importance
+from .utils.extract_funcs import format_importance
 
 class ModelSelect():
 
@@ -38,9 +40,25 @@ class ModelSelect():
         '''
         Parameters
         --------
+        X: train data
+        y: lable data
         '''
         self.auto_ml.search(X,y,data_checks=None)
         return self.auto_ml.rankings
+    
+    @staticmethod
+    def feature_importance(pipline, X, y,**kwds):
+        '''
+        when you find the pipline,you can get the feature_importance,and use it like feature select
+        Parameters; if you want drop can use AutoCreate.remove_features
+        --------
+        pipline: from the search result get the pipeline. self.auto_ml.get_pipeline(id)
+        X: train data
+        y: lable data
+        '''
+        fm_df = calculate_permutation_importance(pipline, X, y,**kwds)
+        feature_importances = format_importance(fm_df.feature,fm_df.importance)
+        return feature_importances
 
     @staticmethod
     def define_pipline(problem_type,estimators:list,hyperparameters:dict,preprocessing_components:list=None):

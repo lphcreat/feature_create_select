@@ -26,7 +26,7 @@ class DataCheck():
         return list(set(or_df.columns.tolist()) -set(use_cols))
     
     @staticmethod
-    def check_unless_features(or_df,threshold=0.95,features_def=None):
+    def check_unless_features(or_df,threshold=0.95):
         #find cols name like id
         contain_id_cols = [item for item in or_df.columns if 'id' in item.lower()]
         #find every row is a unique elements cols
