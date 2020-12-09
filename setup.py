@@ -2,18 +2,11 @@ from setuptools import setup
 
 setup(name="feature_create_select",
         version="0.1.2",
-        description="this is for creating and removing features for a dataset intended for machine learning",
-        url="https://github.com/lphcreat/feature_create_select.git",
+        description="this is for machine learning containing all component,it can improve machine learning effectiveness",
+        url="https://github.com/lphcreat/semi_auto_ml.git",
         author="lph",
         author_email="wynfdsm@163.com",
         license="GNU",
-        packages=["feature_create_select"],
-        install_requires=[
-            "matplotlib>=2.1.2",
-            "seaborn>=0.8.1",
-            "scikit-learn>=0.22.1",
-            'featuretools==0.21.0',
-            'numpy>=1.18.1',
-            'pandas>=1.0.1',
-            ],
+        packages=["semi_auto_ml"],
+        install_requires=open('core-requirements.txt').readlines(),
         zip_safe=True)

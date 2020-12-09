@@ -43,7 +43,7 @@ class ModelSelect():
         X: train data
         y: lable data
         '''
-        self.auto_ml.search(X,y,data_checks=None)
+        self.auto_ml.search(X,y,data_checks=None,show_iteration_plot=False)
         return self.auto_ml.rankings
     
     @staticmethod
