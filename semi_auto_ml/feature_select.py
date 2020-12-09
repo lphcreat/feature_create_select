@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 import gc
 from .utils.extract_funcs import format_importance
 from .feature_create import AutoCreate
+from itertools import chain
 
 class AutoSelect():
     """
@@ -133,12 +134,11 @@ class AutoSelect():
             data : dataframe
                 Dataframe with identified features removed
         """
-        features_to_drop = set(self.removed_features)
-        features_to_drop = list(features_to_drop)
+        features_to_drop = set(chain(*self.removed_features))
         if keep_cols is not None:
             #if keep_cols type is str will keep contain keep_cols cols
             if isinstance(keep_cols,str):
                 keep_cols = [col for col in features_to_drop if keep_cols in col]
-            features_to_drop = list(set(features_to_drop) - set(keep_cols))
+            features_to_drop = list(features_to_drop - set(keep_cols))
         # Remove the features and return
         return AutoCreate.remove_features(features_to_drop,self.data,features_enc=features_enc)

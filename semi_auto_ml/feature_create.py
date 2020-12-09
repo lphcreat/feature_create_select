@@ -34,7 +34,7 @@ class AutoCreate():
         '''
         # convert id type to (int32);if ids type are not same,will can't add relation.
         int_types = ['int16', 'int32', 'int64']
-        convert_col = dataframe.head.select_dtypes(include=int_types).columns
+        convert_col = dataframe.head().select_dtypes(include=int_types).columns
         dataframe[convert_col] = dataframe[convert_col].astype('int32')
         self.auto_create = self.auto_create.entity_from_dataframe(entity_id=entity_id,
                               dataframe=dataframe,**kwds)
@@ -139,6 +139,7 @@ class AutoCreate():
         '''
         if features_enc is None only return data;with features_enc you will get features_enc for deploying
         '''
-        features_def = [item for item in features_enc if item.get_name() not in unkeep]
+        if features_enc is not None:
+            features_enc = [item for item in features_enc if item.get_name() not in unkeep]
         keep = [item for item in or_data.columns if item not in unkeep]
-        return or_data[keep],features_def
+        return or_data[keep],features_enc

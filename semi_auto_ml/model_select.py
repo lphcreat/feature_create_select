@@ -16,12 +16,13 @@ class ModelSelect():
     '''
 
     def __init__(self,problem_type:str,self_pipelines = None, objective=None,**kwds):
+        #TODO 初始化的时候将evalml_debug.log清空
         '''
         Parameters
         --------
         problem_type: binary,multiclass,regression
         self_pipelines: define yourself pipline,please use define_pipline generating it
-        cost_func: default by evalml.objectives.FraudCost or you can set to auto,if you want overwrite it please see
+        objective: default by evalml.objectives.FraudCost or you can set to auto,if you want overwrite it please see
         https://evalml.alteryx.com/en/stable/user_guide/objectives.html
         '''
         self.problem_type = problem_type
@@ -47,7 +48,7 @@ class ModelSelect():
         return self.auto_ml.rankings
     
     @staticmethod
-    def feature_importance(pipline, X, y,**kwds):
+    def feature_importance(pipline, X, y,objective="F1",**kwds):
         '''
         when you find the pipline,you can get the feature_importance,and use it like feature select
         Parameters; if you want drop can use AutoCreate.remove_features
@@ -55,8 +56,10 @@ class ModelSelect():
         pipline: from the search result get the pipeline. self.auto_ml.get_pipeline(id)
         X: train data
         y: lable data
+        objective: cost func
         '''
-        fm_df = calculate_permutation_importance(pipline, X, y,**kwds)
+        pipline = pipline.fit(X,y)
+        fm_df = calculate_permutation_importance(pipline, X, y,objective,**kwds)
         feature_importances = format_importance(fm_df.feature,fm_df.importance)
         return feature_importances
 
