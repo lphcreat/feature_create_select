@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 _data_dir = Path(__file__).parent
 _data_dir=_data_dir.joinpath('semi_auto_ml.egg-info')
-print(_data_dir)
+
 setup(name="semi_auto_ml",
         version="0.1.3",
         description="this is for machine learning containing all component,it can improve machine learning effectiveness",
