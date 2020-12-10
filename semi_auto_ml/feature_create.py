@@ -33,9 +33,8 @@ class AutoCreate():
         one by one add pandas dataframe to EntitySet
         '''
         # convert id type to (int32);if ids type are not same,will can't add relation.
-        int_types = ['int16', 'int32', 'int64']
-        convert_col = dataframe.head().select_dtypes(include=int_types).columns
-        dataframe[convert_col] = dataframe[convert_col].astype('int32')
+        convert_col = dataframe.head().select_dtypes(include = 'number').columns
+        dataframe[convert_col] = dataframe[convert_col].astype('float32')
         self.auto_create = self.auto_create.entity_from_dataframe(entity_id=entity_id,
                               dataframe=dataframe,**kwds)
 
@@ -53,18 +52,23 @@ class AutoCreate():
                                 for parent,child in zip(relationships[::2],relationships[1::2])]
         self.auto_create = self.auto_create.add_relationships(trans_relationships)
 
-    def make_features(self,entityset = None,entities=None, relationships=None,features=None,**kwds):
+    def make_features(self,target_entity=None,entityset = None,entities=None, relationships=None,features=None,**kwds):
         '''
         transform data to features,more parameters please read featuretools.dfs;
         if sub entitys can use normalize_entity.
+
+        Parameters
+        --------
+        target_entity : the entity of target,like the focus table when you use entityset
         '''
         if entityset is None:
             entityset = self.auto_create
         if features is None:
+            assert target_entity is not None
             if entities is None:
-                feature_matrix, features_def = ft.dfs(entityset=entityset,**kwds)
+                feature_matrix, features_def = ft.dfs(target_entity=target_entity,entityset=entityset,**kwds)
             else:
-                feature_matrix, features_def = ft.dfs(entities=entities,relationships=relationships,**kwds)
+                feature_matrix, features_def = ft.dfs(target_entity=target_entity,entities=entities,relationships=relationships,**kwds)
             return feature_matrix, features_def
         else:
             if entities is None:
