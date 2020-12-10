@@ -8,7 +8,8 @@ from evalml.pipelines import (MulticlassClassificationPipeline as MP,
 from evalml.pipelines.components import *
 from evalml.model_understanding import calculate_permutation_importance
 from .utils.extract_funcs import format_importance
-
+import os
+from pathlib import Path
 class ModelSelect():
 
     '''
@@ -16,7 +17,6 @@ class ModelSelect():
     '''
 
     def __init__(self,problem_type:str,self_pipelines = None, objective=None,**kwds):
-        #TODO 初始化的时候将evalml_debug.log清空
         '''
         Parameters
         --------
@@ -25,6 +25,11 @@ class ModelSelect():
         objective: default by evalml.objectives.FraudCost or you can set to auto,if you want overwrite it please see
         https://evalml.alteryx.com/en/stable/user_guide/objectives.html
         '''
+        # clear log
+        _data_dir = Path().parent
+        file_ = _data_dir / 'evalml_debug.log'
+        if os.path.exists(file_):
+            os.remove(file_)
         self.problem_type = problem_type
         if isinstance(objective,dict):
             objective = FraudCost(retry_percentage=objective.get('retry_percentage',0),
