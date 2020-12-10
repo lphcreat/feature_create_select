@@ -22,7 +22,6 @@ class DataCheck():
         '''
         only check num features
         '''
-        #TODO 返回根据需要返回corr表
         use_cols = remove_highly_correlated_features(or_df,pct_corr_threshold=threshold).columns.tolist()
         return list(set(or_df.columns.tolist()) -set(use_cols))
     
@@ -37,9 +36,16 @@ class DataCheck():
     
     @staticmethod
     def check_target_features(or_df,label_name,threshold=0.95):
-        #TODO need select number cols and convert string cols to number by stringindex self define y
-        X = or_df.drop(columns=label_name)
-        y = or_df[label_name]
+        '''
+        only calculate number cols
+        '''
+        if isinstance(label_name,str):
+            y = or_df[label_name]
+            X = or_df.drop(columns=label_name)
+        else:
+            y = label_name
+            X = or_df
+        X = or_df.select_dtypes(include = 'number')
         highly_corr_cols = [label for label, col in X.iteritems() if abs(y.corr(col)) >= threshold]
         return highly_corr_cols
     
