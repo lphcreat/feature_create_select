@@ -1,6 +1,8 @@
 from featuretools.selection import remove_highly_null_features,remove_single_value_features,remove_highly_correlated_features
-
-
+from .utils.checks import OutlineCheck,IQRCheck,TransCat
+from sklearn.pipeline import Pipeline
+import pandas as pd
+from .utils.extract_funcs import remove_model
 class DataCheck():
     '''
     check data:outline data/id columns/null columns/unique columns/target columns
@@ -50,6 +52,27 @@ class DataCheck():
         return highly_corr_cols
     
     @staticmethod
-    def check_outline():
-        #TODO finish outline_check.py
-        pass
+    def clean_outliners(train_data,OCS=True,IQR=True,TC=True):
+        '''
+        can drop or label outliners and joining category to num(you can set it to categorical data)
+        '''
+        #TODO need test
+        other_columns = train_data.select_dtypes(exclude=['number','object','category']).columns()
+        drop_clf = remove_model(train_data,remove_features=other_columns)
+        pipeline_step = [('drop_dim', drop_clf)]
+        result_data = train_data.select_dtypes(include = 'number')
+        result_cat = train_data.select_dtypes(include = ['object','category'])
+        if IQR:
+            iqr = OutlineCheck(IQRCheck())
+            iqr_clf,result_data = iqr.get_detail(result_data)
+            pipeline_step.append(('IQR', iqr_clf))
+        if OCS:
+            ocs = OutlineCheck()
+            ocs_clf,result_data = ocs.get_detail(result_data)
+            pipeline_step.append(('OCS', ocs_clf))
+        if TC:
+            tc = TransCat()
+            result_cat = tc.fit_transform(result_cat)
+            pipeline_step.append(('TransCat', tc))
+        joint_clf = Pipeline(steps=pipeline_step)
+        return joint_clf,pd.concat([result_cat,result_data],axis=1)
