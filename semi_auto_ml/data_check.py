@@ -54,6 +54,7 @@ class DataCheck():
     @staticmethod
     def clean_outliners(train_data,OCS=True,IQR=True,TC=True):
         '''
+        if use datetime features, first process it and next use this function
         can drop or label outliners and joining category to num(you can set it to categorical data)
         '''
         #TODO need test
