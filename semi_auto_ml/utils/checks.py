@@ -3,7 +3,7 @@ from sklearn.svm import OneClassSVM
 import pandas as pd
 import numpy as np
 from evalml.data_checks import OutliersDataCheck
-from extract_funcs import get_IQR,string_index
+from semi_auto_ml.extract_funcs import get_IQR,string_index
 from sklearn.base import BaseEstimator, ClassifierMixin,TransformerMixin
 
 class OutlineCheck():

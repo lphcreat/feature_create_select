@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 import gc
-from .utils.extract_funcs import format_importance
-from .feature_create import AutoCreate
+from semi_auto_ml.utils.extract_funcs import format_importance
+from semi_auto_ml.feature_create import AutoCreate
 from itertools import chain
 
 class AutoSelect():

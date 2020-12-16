@@ -1,8 +1,8 @@
 from featuretools.selection import remove_highly_null_features,remove_single_value_features,remove_highly_correlated_features
-from .utils.checks import OutlineCheck,IQRCheck,TransCat
+from semi_auto_ml.utils.checks import OutlineCheck,IQRCheck,TransCat
 from sklearn.pipeline import Pipeline
 import pandas as pd
-from .utils.extract_funcs import remove_model
+from semi_auto_ml.utils.extract_funcs import remove_model
 class DataCheck():
     '''
     check data:outline data/id columns/null columns/unique columns/target columns

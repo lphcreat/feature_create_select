@@ -1,13 +1,13 @@
 import pandas as pd
 from evalml.automl import AutoMLSearch
 from evalml.objectives import FraudCost
-from .utils.trans_model import SModelTrans
+from semi_auto_ml.utils.trans_model import SModelTrans
 from evalml.pipelines import (MulticlassClassificationPipeline as MP,
                                 BinaryClassificationPipeline  as BP,
                                 RegressionPipeline as RP)
 from evalml.pipelines.components import *
 from evalml.model_understanding import calculate_permutation_importance
-from .utils.extract_funcs import format_importance
+from semi_auto_ml.utils.extract_funcs import format_importance
 import os
 from pathlib import Path
 class ModelSelect():
