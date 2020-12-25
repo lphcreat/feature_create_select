@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
 
+#当centos安装不了shap时，可以将 \site-packages\evalml\model_understanding\prediction_explanations\_algorithms.py 
+# 的 import shap语句注释掉，改模块时计算sharp值的模块
 setup(name="semi_auto_ml",
         packages=find_packages(),
         version="0.1.3",
