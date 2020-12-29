@@ -49,3 +49,11 @@ def string_index(trans:pd.Series,threshold)->dict:
     temp_df.columns = ['cat_name','col_name','label']
     temp_df.loc[temp_df['col_name']<=threshold_num,'label']=temp_df.label.max()+1
     return dict(zip(temp_df.cat_name,temp_df.label))
+
+def reset_threshold(predict_proba,threshold):
+    '''
+    reset binary label for true by proba threshold.
+    '''
+    y_pred_true = predict_proba[1]
+    y_pred = (y_pred_true>threshold)
+    return y_pred
