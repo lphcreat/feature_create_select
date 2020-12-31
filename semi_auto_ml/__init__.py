@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
-# clear log
+# clear log，可以通过参考evalml.utils.logger.get_logger设置log路径
 _data_dir = Path().parent
-file_ = _data_dir / 'evalml_debug.log'
+file_ = _data_dir / os.environ.get('EVALML_LOG_FILE', 'model_create_debug.log')
 if os.path.exists(file_):
     os.remove(file_)
 from .data_check import DataCheck
