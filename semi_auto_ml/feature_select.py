@@ -9,6 +9,7 @@ import gc
 from semi_auto_ml.utils.extract_funcs import format_importance
 from semi_auto_ml.feature_create import AutoCreate
 from itertools import chain
+import plotly.graph_objects as _go
 
 class AutoSelect():
     """
@@ -70,6 +71,20 @@ class AutoSelect():
         feature_importances = format_importance(self.data.columns,feature_importance_values)
         self.removed_features.append(feature_importances[feature_importances['cumulative_importance'] > cumulative_importance]['feature'].tolist())
         return feature_importances
+    
+    @staticmethod
+    def plotly_feature_importances(feature_importances:pd.DataFrame,plot_n = 15, threshold = None):
+        if plot_n > feature_importances.shape[0]:
+            plot_n = feature_importances.shape[0] - 1
+        feature_importances=feature_importances[:plot_n]
+        title = f"Feature Importances"
+        layout = _go.Layout(title={'text': title,},
+                                xaxis={'title': 'Normalized Importance', 'range':[0,1]},
+                                yaxis={'categoryorder':'total ascending'})
+        data = []
+        data.append(_go.Bar(y=feature_importances['feature'],x=feature_importances['normalized_importance'],orientation = 'h'))
+        fig=_go.Figure(layout=layout, data=data)
+        return fig
 
     @staticmethod
     def plot_feature_importances(feature_importances:pd.DataFrame,plot_n = 15, threshold = None):
