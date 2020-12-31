@@ -111,3 +111,19 @@ class TransCat(BaseEstimator, TransformerMixin):
 
     def fit_transform(self,X:pd.DataFrame):
         return self.fit(X).transform(X)
+
+class PackageRules(BaseEstimator, TransformerMixin):
+    '''
+    combine rules as a sklearn model
+    '''
+    def __init__(self):
+        pass
+
+    def fit(self,rules):
+        return self
+
+    def predict(self,X):
+        pass
+    
+    def fit_predict(self,X,rules):
+        return self.fit(rules).predict(X)

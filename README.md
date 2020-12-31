@@ -13,4 +13,7 @@ you can see examples in auto_select_test.ipynb/feature_create_test.ipynb
 will add full_example by the path: data_check -> feature_create -> feature_select -> model_select -> model_deploy -> monitor_predict
 
 # Future
-add model_deploy,outline_check,monitor_predict;
+## first
+add PackageRules/Imbalace processing
+## seconde
+add model_deploy,monitor_predict;
