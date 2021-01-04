@@ -127,7 +127,7 @@ class PackageRules(BaseEstimator, TransformerMixin):
     @staticmethod
     def parse_rule(rule_dict,value):
         '''
-        1.to num features: check the feature not in the forbidden categories.
+        1.to num features: check the feature not in the forbidden num.
         2.to category features: check the feature not in the forbidden categories.
         '''
         rule_type=rule_dict.get('ftype','unkown')
@@ -144,6 +144,9 @@ class PackageRules(BaseEstimator, TransformerMixin):
             raise ValueError("you must define the rule")
 
     def fit(self,new_rules_dict):
+        '''
+        update rules_dict
+        '''
         self.rules_dict.update(new_rules_dict)
         return self
 
