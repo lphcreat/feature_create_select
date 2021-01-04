@@ -114,16 +114,46 @@ class TransCat(BaseEstimator, TransformerMixin):
 
 class PackageRules(BaseEstimator, TransformerMixin):
     '''
-    combine rules as a sklearn model
+    Returns -1 for forbidden and 1 for normal.
+    combine rules as a sklearn model,only map on num/category features,you can define the forbidden rules.
+    RULES EXAMPLE：
+    --------------
+    {'f1':{'ftype':'num','fb_rule':[num1,num2]},'f2':{'ftype':'num','fb_rule':[num1,float('inf')]},
+    'f3':{'ftype':'cat','fb_rule':['c1','c2']},'f4':{'ftype':'num','fb_rule':[float('-inf'),num1]}}
     '''
-    def __init__(self):
-        pass
+    def __init__(self,rules_dict):
+        self.rules_dict=rules_dict
 
-    def fit(self,rules):
+    @staticmethod
+    def parse_rule(rule_dict,value):
+        '''
+        1.to num features: check the feature not in the forbidden categories.
+        2.to category features: check the feature not in the forbidden categories.
+        '''
+        rule_type=rule_dict.get('ftype','unkown')
+        rule = rule_dict.get('fb_rule',None)
+        if rule is not None:
+            if rule_type=='num':
+                min_data,max_data=min(rule),max(rule)
+                return (min_data<=value<=max_data)
+            elif rule_type=='cat':
+                return ~(value in rule)
+            else:
+                raise ValueError("you must define the feature type with num/cat")
+        else:
+            raise ValueError("you must define the rule")
+
+    def fit(self,new_rules_dict):
+        self.rules_dict.update(new_rules_dict)
         return self
 
-    def predict(self,X):
-        pass
+    def predict(self,X:pd.DataFrame):
+        result = []
+        for k,rule_dict in self.rules_dict.items():
+            x_check = X[k].apply(lambda x:PackageRules.parse_rule(rule_dict,x))
+            result.append(x_check)
+        predict_label = pd.concat(result,axis=1).all(axis=1).map({True:1,False:-1})
+        return predict_label
     
     def fit_predict(self,X,rules):
         return self.fit(rules).predict(X)
