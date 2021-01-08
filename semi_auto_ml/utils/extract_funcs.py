@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import featuretools as ft
 from sklearn.preprocessing import FunctionTransformer
+import dill
 
 def format_importance(features,feature_importance):
     '''
@@ -57,3 +58,12 @@ def reset_threshold(predict_proba,threshold):
     y_pred_true = predict_proba[1]
     y_pred = (y_pred_true>threshold)
     return y_pred
+
+def save_sk_model(clf,path):
+    with open(path,'wb') as io:
+        dill.dump(clf,io)
+
+def load_sk_model(path):
+    with open(path,'rb') as io:
+        return dill.load(io)
+    
