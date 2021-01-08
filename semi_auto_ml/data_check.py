@@ -56,8 +56,11 @@ class DataCheck():
         '''
         if use datetime features, first process it and next use this function
         can drop or label outliners and joining category to num(you can set it to categorical data)
+        Notes:
+        --------
+        make stage to model you can decorate every stage to model and connect them.
         '''
-        #TODO need test
+        #TODO can not use
         other_columns = train_data.select_dtypes(exclude=['number','object','category']).columns()
         drop_clf = remove_model(train_data,remove_features=other_columns)
         pipeline_step = [('drop_dim', drop_clf)]

@@ -15,3 +15,4 @@ xgboost>=0.82
 lightgbm>=2.3.1
 catboost>=0.20
 evalml==0.16.0
+dill

@@ -14,3 +14,6 @@ __pycache__/
 
 *.log
 temp*
+/model_file
+*.joblib
+*.json
