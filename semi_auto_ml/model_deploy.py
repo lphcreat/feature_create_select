@@ -1,8 +1,35 @@
 
+from semi_auto_ml.utils.extract_funcs import save_sk_model,load_sk_model
+from sklearn.pipeline import Pipeline
+import os
 
-#TODO 
-# 根据model name 将模型一次保存如：tansfrom model: tf1/tf2...;predict model:pm3
-# 最终形成类似如下的路径 fc.json(使用FeatureCreate生成)->tf_2->tf_3->pm_4->tf_5->pm_6
-# 最终循环该路径使用sklearn pipline结合FeatureCreate 构成预测路径，实现模型自动加载（看情况对于模型类别的定义有无均可）
 class ModelDeploy():
-    pass
+    '''
+    save tratnsform and predict model,not contain feature_tools
+    '''
+    @staticmethod
+    def save_model(model_path:tuple,save_path):
+        '''
+        save all model to file,except feature_tools
+        '''
+        for ind,item in enumerate(model_path):
+            file_path = save_path+f'{ind}_m.joblib'
+            if hasattr(item,'save'):
+                item.save(file_path)
+            else:
+                save_sk_model(item,file_path)
+
+    @staticmethod
+    def load_model(save_path):
+        '''
+        from save_path load all joblib table,and generate pipeline by name
+        '''
+        pips = []
+        models = sorted([ml for ml in os.listdir(save_path) if ml.endswith('joblib')],key=lambda x:int(x[0]))
+        for ind,item in enumerate(models):
+            file_path = save_path+item
+            clf = load_sk_model(file_path)
+            pips.append((f'{ind}_m',clf))
+        return Pipeline(pips)
+
+
